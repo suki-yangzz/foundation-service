@@ -1,7 +1,7 @@
-package net.susss.demo.foundationservice.protocol;
+package net.susss.demo.foundationservice.protobuf;
 
-import net.susss.demo.foundationservice.protocol.proto.AddressBookProtos.Person;
-import net.susss.demo.foundationservice.protocol.proto.AddressBookProtos.AddressBook;
+import net.susss.demo.foundationservice.protobuf.proto.AddressBookProtos.Person;
+import net.susss.demo.foundationservice.protobuf.proto.AddressBookProtos.AddressBook;
 
 import java.io.*;
 
