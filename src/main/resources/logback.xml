@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>LOCAL_SYSTEM_TIME=[%d{yyyy-MM-dd HH:mm:ss.SSS}],THREAD=[%thread],LOG_LEVEL=[%-5level],CLASS=[%class{35}.%M:%L],%m%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <encoder>
+            <pattern><![CDATA[
+				%-20(%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread]) %-5level %logger{80}[%L] - %msg%n
+          ]]></pattern>
+        </encoder>
+    </appender>
+
+    <appender name="allErrorRFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level> <!--  Specify the level to be filtered for ERROR log information  -->
+            <OnMismatch>DENY</OnMismatch>     <!--  If it does not match, refuse to deal with  -->
+            <OnMatch>ACCEPT</OnMatch>         <!--  If it does match, refuse to deal with  -->
+        </filter>
+        <file>timer/all-error.log</file>
+        <param name="append" value="true"/>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>timer/all-error.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern><![CDATA[
+				%-20(%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread]) %-5level %logger{80}[%L] - %msg%n
+          ]]></pattern>
+        </encoder>
+    </appender>
+
+    <logger name="net.susss.timer"  level="INFO" additivity="false">
+        <appender-ref ref="STDERR"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="allErrorRFile"/>
+    </logger>
+
+    <logger name="org.springframework.jdbc" level="DEBUG" additivity="false">
+        <appender-ref ref="STDERR"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="allErrorRFile"/>
+    </logger>
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="STDERR"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="allErrorRFile"/>
+    </root>
+</configuration>

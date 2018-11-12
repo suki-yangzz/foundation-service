@@ -5,7 +5,7 @@ package net.susss.demo.timer;
  */
 public class ProducerTest {
     public static void main(String args[]) {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             RedisProducer r = new RedisProducer( "Thread-" + i);
             r.start();
         }
